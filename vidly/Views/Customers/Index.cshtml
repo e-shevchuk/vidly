@@ -10,6 +10,7 @@
     <table class="table table-bordered table-hover">
         <thead>
         <th>Customer</th>
+        <th>Membership Type</th>
         <th>Discount</th>
         </thead>
         <tbody>
@@ -24,6 +25,9 @@
                         new {id = customer.Id},
                         null
                         )
+                </td>
+                <td>
+                    @customer.MembershipType.Name
                 </td>
                 <td>
                     @customer.MembershipType.DiscountRate.ToString()%
