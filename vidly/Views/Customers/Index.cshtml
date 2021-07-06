@@ -8,6 +8,11 @@
 @if (Model.Any())
 {
     <table class="table table-bordered table-hover">
+        <thead>
+        <th>Customer</th>
+        <th>Discount</th>
+        </thead>
+        <tbody>
         @foreach (var customer in Model)
         {
             <tr>
@@ -16,12 +21,16 @@
                         customer.Name,
                         "Details",
                         "Movies",
-                        new { id = customer.Id },
+                        new {id = customer.Id},
                         null
-                    )
+                        )
+                </td>
+                <td>
+                    @customer.MembershipType.DiscountRate.ToString()%
                 </td>
             </tr>
         }
+        </tbody>
     </table>
 }
 else
