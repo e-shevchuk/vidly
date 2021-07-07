@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
+using Microsoft.CodeAnalysis;
 
 namespace vidly.Models
 {
@@ -28,6 +29,7 @@ namespace vidly.Models
         [DefaultValue(0)]
         
         [Display(Name = "Number in Stock")]
+        [Range(1, 20, ErrorMessage="Number in Stock should be between 1 and 20.")]
         public int NumberInStock { get; set; }
     }
 }
