@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using vidly.Data;
 
 namespace vidly.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210707071118_AddGenreData")]
+    partial class AddGenreData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -282,24 +284,10 @@ namespace vidly.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("AddedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NumberInStock")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime?>("ReleaseDate")
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("GenreId");
 
                     b.ToTable("Movies");
                 });
@@ -364,17 +352,6 @@ namespace vidly.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("MembershipType");
-                });
-
-            modelBuilder.Entity("vidly.Models.Movie", b =>
-                {
-                    b.HasOne("vidly.Models.Genre", "Genre")
-                        .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Genre");
                 });
 #pragma warning restore 612, 618
         }
