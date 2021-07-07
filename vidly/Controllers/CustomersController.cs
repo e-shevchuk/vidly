@@ -24,7 +24,12 @@ namespace vidly.Controllers
         {
             _context.Dispose();
         }
-        
+
+        public IActionResult New()
+        {
+            return View();
+        }
+
         // GET: /<controller>/
         public IActionResult Index()
         {
