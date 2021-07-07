@@ -7,17 +7,22 @@ namespace vidly.Models
 {
     public class Movie
     {
+        [Required]
         public string Name { get; set; }
         
         public int Id { get; set; }
         
         public Genre Genre { get; set; }
         
+        [Required(ErrorMessage = "Pick the Genre, please.")]
+        [Display(Name = "Genre")]
         public int GenreId { get; set; }
         
+        [Required]
         [Display(Name = "Release Date")]
         public DateTime? ReleaseDate { get; set; }
         
+        [Required]
         [Display(Name = "Added Date")]
         public DateTime? AddedDate { get; set; }
         [DefaultValue(0)]
