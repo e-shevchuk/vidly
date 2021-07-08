@@ -22,6 +22,7 @@ namespace vidly.Controllers
             _context = context;
         }
 
+        // TODO: Remove this method (it's redundant)
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();

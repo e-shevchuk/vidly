@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vidly.Data;
@@ -16,7 +17,7 @@ namespace vidly.Controllers
     {
         private ApplicationDbContext _context;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
         }
