@@ -27,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Api" />
     <Folder Include="Views\Movies\" />
     <Folder Include="Views\Customers\" />
   </ItemGroup>

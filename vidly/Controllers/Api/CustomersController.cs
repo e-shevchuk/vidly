@@ -33,7 +33,7 @@ namespace vidly.Controllers.Api
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<IEnumerable<CustomerDto>> Get()
+        public async Task<IEnumerable<CustomerDto>> GetCustomers()
         {
             var customers = await _context.Customers.ToListAsync();
             var customerDtos = customers.Select(_mapper.Map<Customer, CustomerDto>);
@@ -41,7 +41,7 @@ namespace vidly.Controllers.Api
         }
 
         // GET: api/Customers/5
-        [HttpGet("{id:int}", Name = "Get")]
+        [HttpGet("{id:int}", Name = "GetCustomer")]
         public async Task<ActionResult<CustomerDto>> GetCustomer(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
@@ -70,7 +70,7 @@ namespace vidly.Controllers.Api
 
         // PUT: api/Customers/5
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, CustomerDto customerDto)
+        public async Task<ActionResult> PutCustomer(int id, CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
@@ -84,12 +84,12 @@ namespace vidly.Controllers.Api
 
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return AcceptedAtAction(nameof(GetCustomer), new {id = customerDto.Id}, customerDto);
         }
 
         // DELETE: api/Customers/5
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> DeleteCustomer(int id)
         {
             var customerInDb = await _context.Customers.SingleOrDefaultAsync(c => c.Id == id);
 
