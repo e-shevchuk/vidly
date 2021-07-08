@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using vidly.Data;
 using Microsoft.Extensions.Configuration;
@@ -40,6 +43,11 @@ namespace vidly
             
             services.AddAutoMapper(typeof(CommonMappingProfile));
             
+            // Enable global Authorization requirement
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
