@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Identity.UI.V4.Pages.Internal
 @model vidly.ViewModels.CustomerFormViewModel
 
 @{
@@ -5,15 +6,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Customer</h2>
+<h2>@(Model.Customer.Id == 0 ? "New Customer" : "Editing Customer") </h2>
 
 @using (Html.BeginForm("Save", "Customers"))
 {
+    @Html.ValidationSummary(true, "Please, fix the following errors:")
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.Name)
         @Html.TextBoxFor(
             m => m.Customer.Name, 
             new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Customer.Name, null, new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId, null, new { @class = "text-danger" })
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.Customer.BirthDate)
@@ -21,10 +29,7 @@
             m => m.Customer.BirthDate,
             "{0:d MMM yyyy}",
             new {@class = "form-control"})
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Customer.MembershipTypeId)
-        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Customer.BirthDate, null, new { @class = "text-danger" })
     </div>
     <div class="form-check pl-0">
         <label>
@@ -32,6 +37,11 @@
         </label>
     </div>
     @Html.HiddenFor(m => m.Customer.Id)
+    @Html.AntiForgeryToken()
     <button class="btn btn-primary">Save</button>
 }
 
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

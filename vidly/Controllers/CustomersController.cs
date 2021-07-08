@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vidly.Data;
@@ -16,7 +17,7 @@ namespace vidly.Controllers
     {
         private ApplicationDbContext _context;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
         }
@@ -31,14 +32,26 @@ namespace vidly.Controllers
             var membershipTypes = _context.MembershipTypes.ToList();
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes,
             };
             return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel()
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("CustomerForm", viewModel);
+            }
+            
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
             else

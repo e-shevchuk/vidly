@@ -1,12 +1,10 @@
-﻿using System;
-using System.ComponentModel;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
+using vidly.Models;
 
-namespace vidly.Models
+namespace vidly.Dtos
 {
-    public class Customer
+    public class CustomerDto
     {
         public int Id { get; set; }
         
@@ -16,14 +14,9 @@ namespace vidly.Models
         
         public bool IsSubscribedToNewsletter { get; set; }
         
-        public MembershipType MembershipType { get; set; }
-        
         [Required]
-        [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
 
-        [Min18YearsIfAMember]
-        [Display(Name = "Date of Birth")]
         public DateTime? BirthDate { get; set; }
     }
 }
