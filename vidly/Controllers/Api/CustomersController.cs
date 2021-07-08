@@ -65,7 +65,7 @@ namespace vidly.Controllers.Api
 
             customerDto.Id = customer.Id;
 
-            return customerDto;
+            return CreatedAtAction(nameof(GetCustomer), new {id = customerDto.Id}, customerDto);
         }
 
         // PUT: api/Customers/5
